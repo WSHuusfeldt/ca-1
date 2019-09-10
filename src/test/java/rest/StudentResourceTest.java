@@ -70,9 +70,9 @@ public class StudentResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt","More text"));
-            em.persist(new Student("aaa","bbb"));
+            em.createNamedQuery("Student.deleteAllRows").executeUpdate();
+            em.persist(new Student("Some txt",1,"More text"));
+            em.persist(new Student("aaa",2,"bbb"));
            
             em.getTransaction().commit();
         } finally {

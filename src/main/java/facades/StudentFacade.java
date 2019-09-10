@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -37,7 +38,7 @@ public class StudentFacade {
     }
     
     //TODO Remove/Change this before use
-    public long getRenameMeCount(){
+    public long getStudentsCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long StudentCount = (long)em.createQuery("SELECT COUNT(r) FROM Student r").getSingleResult();
@@ -46,6 +47,37 @@ public class StudentFacade {
             em.close();
         }
         
+    }
+    
+    public List<Student> getAllStudents(){
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Student.getAll").getResultList();
+    }
+    
+    public List<Student> getStudentsByName(String name){
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Student> tq = em.createNamedQuery("Student.getByName", Student.class);
+        tq.setParameter("name", "%" + name + "%");
+        return tq.getResultList();
+    }
+    
+    public Student getStudentsById(long id) {
+        EntityManager em = emf.createEntityManager();
+        return em.find(Student.class, id);
+    }
+
+    public Student createStudent(Student student) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(student);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return student;
     }
 
 }

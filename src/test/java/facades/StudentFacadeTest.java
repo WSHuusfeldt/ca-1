@@ -28,7 +28,7 @@ public class StudentFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3307/startcode_test",
+                "jdbc:mysql://localhost:3307/ca1_student_test",
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
@@ -60,8 +60,8 @@ public class StudentFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt", "More text"));
-            em.persist(new Student("aaa", "bbb"));
+            em.persist(new Student("Some txt",2, "More text"));
+            em.persist(new Student("aaa",2, "bbb"));
 
             em.getTransaction().commit();
         } finally {
@@ -77,7 +77,7 @@ public class StudentFacadeTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+        assertEquals(2, facade.getStudentsCount(), "Expects two rows in the database");
     }
 
 }

@@ -9,13 +9,25 @@ import javax.persistence.NamedQuery;
 
 
 @Entity
-@NamedQuery(name = "RenameMe.deleteAllRows", query = "DELETE from RenameMe")
+@NamedQuery(name = "Student.deleteAllRows", query = "DELETE from Student")
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    private String name;
+    private int studentID;
+    private String color;
+
+    public Student(String name, int studentID, String color) {
+        this.name = name;
+        this.studentID = studentID;
+        this.color = color;
+    }
+    
+   
     
     public Student() {
     }
@@ -27,33 +39,30 @@ public class Student implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    // TODO, delete this class, or rename to an Entity class that makes sense for what you are about to do
-    // Delete EVERYTHING below if you decide to use this class, it's dummy data used for the initial demo
-    private String dummyStr1;
-    private String dummyStr2;
 
-    public Student(String dummyStr1, String dummyStr2) {
-        this.dummyStr1 = dummyStr1;
-        this.dummyStr2 = dummyStr2;
+    public String getName() {
+        return name;
     }
 
-    public String getDummyStr1() {
-        return dummyStr1;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setDummyStr1(String dummyStr1) {
-        this.dummyStr1 = dummyStr1;
+    public int getStudentID() {
+        return studentID;
     }
 
-    public String getDummyStr2() {
-        return dummyStr2;
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
     }
 
-    public void setDummyStr2(String dummyStr2) {
-        this.dummyStr2 = dummyStr2;
+    public String getColor() {
+        return color;
     }
-    
+
+    public void setColor(String color) {
+        this.color = color;
+    }
     
     
 
