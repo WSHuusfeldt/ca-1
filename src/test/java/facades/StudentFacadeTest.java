@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.Settings;
 import utils.EMF_Creator.DbSelector;
@@ -60,10 +61,10 @@ public class StudentFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Asger", 1, "Red"));
-            em.persist(new Student("William", 2, "Red"));
-            em.persist(new Student("Martin", 3, "Light green"));
-            em.persist(new Student("Andreas", 4, "Very light green"));
+            em.persist(new Student("Asger", "1", "Red"));
+            em.persist(new Student("William", "2", "Red"));
+            em.persist(new Student("Martin", "3", "Light green"));
+            em.persist(new Student("Andreas", "4", "Very light green"));
 
             em.getTransaction().commit();
         } finally {
@@ -81,10 +82,15 @@ public class StudentFacadeTest {
         assertEquals(4, facade.getStudentsCount());
     }
     
-    //Tester for id og ikke studentID.
+    @Disabled
     @Test
     public void testGetStudentsById() {
-        assertEquals("Andreas", facade.getStudentsById(3).getName());
+        assertEquals("Andreas", facade.getStudentsById((long)2).getName());
+    }
+    
+    @Test
+    public void testGetStudentByName() {
+        assertEquals("Asger", facade.getStudentsByName("Asger").get(0).getName());
     }
     
 
