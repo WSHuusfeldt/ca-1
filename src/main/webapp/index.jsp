@@ -15,11 +15,14 @@
         <h1>Group Name: Out Of Memory</h1>
         <h2>Class A</h2>
         <table>
-            <tr>
+            <thead>
+                <tr>
                 <th>Name</th>
                 <th>Student id</th>
                 <th>Color</th>
             </tr>
+            </thead>
+            
             <tr>
 
             </tr>
