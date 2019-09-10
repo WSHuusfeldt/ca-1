@@ -1,8 +1,15 @@
+<%-- 
+    Document   : index
+    Created on : Sep 10, 2019, 5:35:22 PM
+    Author     : asgerhs
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
     </head>
     <body>
         <h1>Group Name: Out Of Memory</h1>
@@ -14,9 +21,8 @@
                 <th>Color</th>
             </tr>
             <tr>
-                
+
             </tr>
         </table>
-        </ul>
     </body>
 </html>
