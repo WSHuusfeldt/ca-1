@@ -71,8 +71,8 @@ public class StudentResourceTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt",1,"More text"));
-            em.persist(new Student("aaa",2,"bbb"));
+            em.persist(new Student("Some txt","st123","More text"));
+            em.persist(new Student("aaa","ab123","bbb"));
            
             em.getTransaction().commit();
         } finally {
@@ -83,7 +83,7 @@ public class StudentResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/groupmembers").then().statusCode(200);
     }
    
     //This test assumes the database contains two rows
@@ -91,7 +91,7 @@ public class StudentResourceTest {
     public void testDummyMsg() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/").then()
+        .get("/groupmembers/").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("msg", equalTo("Hello World"));   
@@ -101,7 +101,7 @@ public class StudentResourceTest {
     public void testCount() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/count").then()
+        .get("/groupmembers/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("count", equalTo(2));   

@@ -60,8 +60,8 @@ public class StudentFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt",2, "More text"));
-            em.persist(new Student("aaa",2, "bbb"));
+            em.persist(new Student("Some txt","st123", "More text"));
+            em.persist(new Student("aaa","ab123", "bbb"));
 
             em.getTransaction().commit();
         } finally {
