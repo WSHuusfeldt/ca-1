@@ -1,7 +1,7 @@
 package facades;
 
 import utils.EMF_Creator;
-import entities.RenameMe;
+import entities.Student;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -16,12 +16,12 @@ import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class FacadeExampleTest {
+public class StudentFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static StudentFacade facade;
 
-    public FacadeExampleTest() {
+    public StudentFacadeTest() {
     }
 
     //@BeforeAll
@@ -32,7 +32,7 @@ public class FacadeExampleTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = FacadeExample.getFacadeExample(emf);
+        facade = StudentFacade.getFacadeExample(emf);
     }
 
     /*   **** HINT **** 
@@ -44,7 +44,7 @@ public class FacadeExampleTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = StudentFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -59,9 +59,9 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+            em.createNamedQuery("Student.deleteAllRows").executeUpdate();
+            em.persist(new Student("Some txt", "More text"));
+            em.persist(new Student("aaa", "bbb"));
 
             em.getTransaction().commit();
         } finally {
