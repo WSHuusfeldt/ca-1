@@ -33,7 +33,7 @@ public class StudentFacadeTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = StudentFacade.getFacadeExample(emf);
+        facade = StudentFacade.getStudentFacade(emf);
     }
 
     /*   **** HINT **** 
@@ -45,7 +45,7 @@ public class StudentFacadeTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = StudentFacade.getFacadeExample(emf);
+       facade = StudentFacade.getStudentFacade(emf);
     }
 
     @AfterAll

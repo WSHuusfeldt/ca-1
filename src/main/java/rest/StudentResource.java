@@ -25,7 +25,7 @@ public class StudentResource {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-    private static final StudentFacade FACADE =  StudentFacade.getFacadeExample(EMF);
+    private static final StudentFacade FACADE =  StudentFacade.getStudentFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
     @GET
@@ -47,7 +47,7 @@ public class StudentResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getGroupMembers(){
-        fc = StudentFacade.getFacadeExample(EMF);
+        fc = StudentFacade.getStudentFacade(EMF);
         List<Student> st = fc.getAllStudents();
         return new Gson().toJson(st);
         
