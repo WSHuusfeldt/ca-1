@@ -18,10 +18,10 @@ public class Student implements Serializable {
     private Long id;
     
     private String name;
-    private int studentID;
+    private String studentID;
     private String color;
 
-    public Student(String name, int studentID, String color) {
+    public Student(String name, String studentID, String color) {
         this.name = name;
         this.studentID = studentID;
         this.color = color;
@@ -48,11 +48,11 @@ public class Student implements Serializable {
         this.name = name;
     }
 
-    public int getStudentID() {
+    public String getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(int studentID) {
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 
