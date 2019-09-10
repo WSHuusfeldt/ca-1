@@ -60,8 +60,10 @@ public class StudentFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt",2, "More text"));
-            em.persist(new Student("aaa",2, "bbb"));
+            em.persist(new Student("Asger", 1, "Red"));
+            em.persist(new Student("William", 2, "Red"));
+            em.persist(new Student("Martin", 3, "Light green"));
+            em.persist(new Student("Andreas", 4, "Very light green"));
 
             em.getTransaction().commit();
         } finally {
@@ -74,10 +76,16 @@ public class StudentFacadeTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
     @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getStudentsCount(), "Expects two rows in the database");
+    public void testStudentsCount() {
+        assertEquals(4, facade.getStudentsCount());
     }
+    
+    //Tester for id og ikke studentID.
+    @Test
+    public void testGetStudentsById() {
+        assertEquals("Andreas", facade.getStudentsById(3).getName());
+    }
+    
 
 }
