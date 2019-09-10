@@ -5,11 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 
 @Entity
-@NamedQuery(name = "Student.deleteAllRows", query = "DELETE from Student")
+@NamedQueries({
+@NamedQuery(name = "Student.deleteAllRows", query = "DELETE from Student"),
+@NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s"),
+@NamedQuery(name = "Student.getByName", query = "SELECT s FROM Student s WHERE s.name LIKE :name")
+})
+
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
