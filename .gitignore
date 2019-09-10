@@ -104,3 +104,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,macos,maven,windows,netbeans
+nb-configuration.xml
