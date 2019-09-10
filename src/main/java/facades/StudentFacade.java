@@ -26,7 +26,7 @@ public class StudentFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static StudentFacade getFacadeExample(EntityManagerFactory _emf) {
+    public static StudentFacade getStudentFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new StudentFacade();
