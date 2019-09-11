@@ -27,7 +27,7 @@ public class StudentResource {
                 EMF_Creator.Strategy.CREATE);
     private static final StudentFacade FACADE =  StudentFacade.getStudentFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-            
+    
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})

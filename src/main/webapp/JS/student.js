@@ -1,9 +1,13 @@
 window.onload = function () {
-
+        
+    
     var btn = this.document.getElementById("refresh");
     btn.onclick = function () {
-        start("http://127.0.0.1:8080/jpareststarter/api/groupmembers/all");
+        start("/jpareststarter/api/groupmembers/all");
     }
+    
+    document.getElementById("output").addEventListener("load", start("/jpareststarter/api/groupmembers/all"));
+    
     function start(url) {
         fetch(url)
             .then(res => res.json()) //in flow1, just do it
