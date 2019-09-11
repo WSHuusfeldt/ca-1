@@ -36,8 +36,8 @@ public class JokesFacade {
     public int getJokesCount() {
         EntityManager em = emf.createEntityManager();
         try {
-            int JokesCount = (int)em.createQuery("SELECT COUNT(j) FROM Jokes j").getSingleResult();
-            return JokesCount;
+            TypedQuery<Jokes> query = em.createQuery("SELECT j from Jokes j", Jokes.class);
+            return query.getResultList().size();
         } finally {
             em.close();
         }
@@ -76,7 +76,10 @@ public class JokesFacade {
         }
     }
     
-    
+    public static void main(String[] args) {
+        JokesFacade fc = JokesFacade.getJokesFacade(emf);
+        System.out.println(fc.getJokesCount());
+    }
     
     
 }
