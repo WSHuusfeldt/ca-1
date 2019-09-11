@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import utils.EMF_Creator;
 import entities.Jokes;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +22,7 @@ public class JokesFacadeTest {
 
     private static EntityManagerFactory emf;
     private static JokesFacade facade;
+    List<Jokes> joke = new ArrayList();
 
     public JokesFacadeTest() {
     }
@@ -64,13 +67,20 @@ public class JokesFacadeTest {
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
     public void setUp() {
+        
         EntityManager em = emf.createEntityManager();
+        Jokes j1 = new Jokes("What did the application say to the programmer? Hello World.", "Programming");
+        Jokes j2 = new Jokes("What's the best thing about switzerland? idk but the flag is a big plus.", "Geo");
+        Jokes j3 = new Jokes("Who has all the best jokes? Asger!", "Humble");
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Jokes("What did the application say to the programmer? Hello World.", "Programming"));
-            em.persist(new Jokes("What's the best thing about switzerland? idk but the flag is a big plus.", "Geo"));
-            em.persist(new Jokes("Who has all the best jokes? Asger!", "Humble"));
+            em.createNamedQuery("Jokes.deleteAllRows").executeUpdate();
+            em.persist(j1);
+            em.persist(j2);
+            em.persist(j3);
+            joke.add(j1);
+            joke.add(j2);
+            joke.add(j3);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -88,4 +98,18 @@ public class JokesFacadeTest {
         assertEquals(3, facade.getJokesCount());
     }
 
+    
+    @Test
+    public void testAllJokes(){
+        assertEquals(3, facade.getAllJokes().size());
+    }
+    
+    @Test
+    public void testJokeByID(){
+        assertEquals("Geo", facade.getJokeByID(joke.get(1).getId()).getType());
+    }
+    
+    
+    
+    
 }
