@@ -2,15 +2,14 @@ package facades;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import utils.EMF_Creator;
 import entities.Jokes;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +18,11 @@ import org.junit.jupiter.api.Test;
  * @author asgerhs
  */
 public class JokesFacadeTest {
-
+    
     private static EntityManagerFactory emf;
     private static JokesFacade facade;
-    List<Jokes> joke = new ArrayList();
-
+    private static List<Jokes> joke = new ArrayList();
+    
     public JokesFacadeTest() {
     }
 
@@ -48,68 +47,66 @@ public class JokesFacadeTest {
     public static void setUpClassV2() {
         emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.DROP_AND_CREATE);
         facade = JokesFacade.getJokesFacade(emf);
+        joke.add(new Jokes("What did the application say to the programmer? Hello World.", "Programming"));
+        joke.add(new Jokes("What's the best thing about switzerland? idk but the flag is a big plus.", "Geo"));
+        joke.add(new Jokes("Who has all the best jokes? Asger!", "Humble"));
     }
-//
-//    @AfterAll
-//    public static void tearDownClass() {
-//        EntityManager em = emf.createEntityManager();
-//        try {
-//            em.getTransaction().begin();
-//            em.createNamedQuery("Jokes.deleteAllRows").executeUpdate();
-//            em.getTransaction().commit();
-//        } finally {
-//            em.close();
-//        }
-//
-//    }
+    
+    @AfterAll
+    public static void tearDownClass() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("Jokes.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        
+    }
 
     // Setup the DataBase in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
     public void setUp() {
-        
         EntityManager em = emf.createEntityManager();
-        Jokes j1 = new Jokes("What did the application say to the programmer? Hello World.", "Programming");
-        Jokes j2 = new Jokes("What's the best thing about switzerland? idk but the flag is a big plus.", "Geo");
-        Jokes j3 = new Jokes("Who has all the best jokes? Asger!", "Humble");
+        
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Jokes.deleteAllRows").executeUpdate();
-            em.persist(j1);
-            em.persist(j2);
-            em.persist(j3);
-            joke.add(j1);
-            joke.add(j2);
-            joke.add(j3);
+            for (Jokes joke : joke) {
+                em.persist(joke);
+            }
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-
+    
     @AfterEach
     public void tearDown() {
 //        Remove any data after each test was run
     }
     
-    
     @Test
-    public void testJokeCount(){
+    public void testJokeCount() {
         assertEquals(3, facade.getJokesCount());
     }
-
     
     @Test
-    public void testAllJokes(){
+    public void testAllJokes() {
         assertEquals(3, facade.getAllJokes().size());
     }
     
     @Test
-    public void testJokeByID(){
+    public void testJokeByID() {
         assertEquals("Geo", facade.getJokeByID(joke.get(1).getId()).getType());
     }
     
-    
-    
+    @Test
+    public void testRandomJoke() {
+        Jokes joke = facade.getRandomJoke();
+        assertEquals(joke, joke);
+    }
     
 }

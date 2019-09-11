@@ -10,12 +10,14 @@ import com.google.gson.GsonBuilder;
 import entities.Cars;
 import facades.CarsFacade;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
+import entities.Jokes;
 
 /**
  *
@@ -53,4 +55,8 @@ public class CarsResource {
         return new Gson().toJson(st);
     }
     
-}
+    
+              
+    }
+    
+

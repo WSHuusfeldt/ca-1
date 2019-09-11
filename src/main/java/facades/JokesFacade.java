@@ -77,8 +77,7 @@ public class JokesFacade {
     }
     
     public static void main(String[] args) {
-        JokesFacade fc = JokesFacade.getJokesFacade(emf);
-        System.out.println(fc.getJokesCount());
+        
     }
     
     
