@@ -5,12 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author asgerhs
  */
 @Entity
+@NamedQueries({
+@NamedQuery(name = "Jokes.deleteAllRows", query = "DELETE from Jokes"),
+@NamedQuery(name = "Jokes.getAll", query = "SELECT j FROM Jokes j"),
+})
 public class Jokes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,8 +29,7 @@ public class Jokes implements Serializable {
     public Jokes() {
     }
 
-    public Jokes(Long id, String joke, String type) {
-        this.id = id;
+    public Jokes(String joke, String type) {
         this.joke = joke;
         this.type = type;
     }
