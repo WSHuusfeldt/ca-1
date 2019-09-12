@@ -14,7 +14,7 @@ import javax.persistence.Id;
  *
  * @author willi
  */
-public class Cars implements Serializable {
+public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -28,10 +28,10 @@ public class Cars implements Serializable {
     private int price;
     private String owner;
 
-    public Cars() {
+    public Car() {
     }
 
-    public Cars(int year, String make, String model, String color, int price, String owner) {
+    public Car(int year, String make, String model, String color, int price, String owner) {
         this.year = year;
         this.make = make;
         this.model = model;

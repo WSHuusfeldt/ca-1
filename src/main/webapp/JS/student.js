@@ -10,7 +10,7 @@ window.onload = function () {
     
     function start(url) {
         fetch(url)
-            .then(res => res.json()) //in flow1, just do it
+            .then(res => res.json()) 
             .then(data => {
                 document.getElementById("output").innerHTML =
                 data.map(x =>
