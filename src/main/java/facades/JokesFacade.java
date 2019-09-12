@@ -70,7 +70,7 @@ public class JokesFacade {
         Random rand = new Random();
         JokesFacade fc = new JokesFacade();
         try{
-            return fc.getJokeByID(rand.nextInt(fc.getJokesCount()));
+            return fc.getJokeByID(rand.nextInt(fc.getJokesCount()) + 1);
         }finally{
             em.close();
         }

@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
 import entities.Jokes;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +56,26 @@ public class CarsResource {
         return new Gson().toJson(st);
     }
     
+    public static void main(String[] args) {
+        EntityManager em = EMF.createEntityManager();
+        List<Cars> cars = new ArrayList();
+        cars.add(new Cars(1992, "Ford", "E350", "Red", 3000, "Asger"));
+        cars.add(new Cars(1999, "Chevy", "Venture", "Black", 3250, "Martin"));
+        cars.add(new Cars(2000, "Chevy", "Venture", "Hot pink", 800, "Andreas"));
+        cars.add(new Cars(1996, "Jeep", "Grand Cherokee", "Chrome", 696969, "William"));
+        
+        try{
+        em.getTransaction().begin();
+        em.persist(new Cars(1992, "Ford", "E350", "Red", 3000, "Asger"));
+//        for(Cars c : cars){
+//            em.persist(c);
+//        }
+        em.getTransaction().commit();
+        }finally{
+                em.close();
+                }
+        
+    }
     
               
     }
