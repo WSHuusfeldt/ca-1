@@ -2,6 +2,8 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Student;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.Settings;
 import utils.EMF_Creator.DbSelector;
@@ -20,6 +23,7 @@ public class StudentFacadeTest {
 
     private static EntityManagerFactory emf;
     private static StudentFacade facade;
+    List<Student> students = new ArrayList();
 
     public StudentFacadeTest() {
     }
@@ -32,7 +36,7 @@ public class StudentFacadeTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = StudentFacade.getFacadeExample(emf);
+        facade = StudentFacade.getStudentFacade(emf);
     }
 
     /*   **** HINT **** 
@@ -43,8 +47,8 @@ public class StudentFacadeTest {
      */
     @BeforeAll
     public static void setUpClassV2() {
-       emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = StudentFacade.getFacadeExample(emf);
+        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
+        facade = StudentFacade.getStudentFacade(emf);
     }
 
     @AfterAll
@@ -57,11 +61,19 @@ public class StudentFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
+
+        students.add(new Student("Asger", "1", "Red"));
+        students.add(new Student("William", "2", "Red"));
+        students.add(new Student("Martin", "3", "Light green"));
+        students.add(new Student("Andreas", "4", "Very light green"));
+
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt",2, "More text"));
-            em.persist(new Student("aaa",2, "bbb"));
+
+            for (Student s : students) {
+                em.persist(s);
+            }
 
             em.getTransaction().commit();
         } finally {
@@ -71,13 +83,21 @@ public class StudentFacadeTest {
 
     @AfterEach
     public void tearDown() {
-//        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
     @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getStudentsCount(), "Expects two rows in the database");
+    public void testStudentsCount() {
+        assertEquals(4, facade.getStudentsCount());
+    }
+
+    @Test
+    public void testGetStudentsById() {
+        assertEquals("Andreas", facade.getStudentsById(students.get(3).getId()).getName());
+    }
+
+    @Test
+    public void testGetStudentByName() {
+        assertEquals("Asger", facade.getStudentsByName("Asger").get(0).getName());
     }
 
 }

@@ -1,10 +1,11 @@
 package facades;
 
 import entities.Student;
+import static java.lang.reflect.Array.get;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
@@ -25,7 +26,7 @@ public class StudentFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static StudentFacade getFacadeExample(EntityManagerFactory _emf) {
+    public static StudentFacade getStudentFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new StudentFacade();
@@ -51,7 +52,8 @@ public class StudentFacade {
     
     public List<Student> getAllStudents(){
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Student.getAll").getResultList();
+        TypedQuery<Student> query =  em.createQuery("SELECT s FROM Student s", Student.class);
+        return query.getResultList();
     }
     
     public List<Student> getStudentsByName(String name){
@@ -79,5 +81,7 @@ public class StudentFacade {
         }
         return student;
     }
+    
+    
 
 }
