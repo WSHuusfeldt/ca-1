@@ -5,7 +5,7 @@
  */
 package facades;
 
-import entities.Cars;
+import entities.Car;
 import entities.Student;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -42,25 +42,25 @@ public class CarsFacade {
         }
     }
     
-    public List<Cars> getAllCars(){
+    public List<Car> getAllCars(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Cars> query =  em.createQuery("SELECT c FROM Cars c", Cars.class);
+        TypedQuery<Car> query =  em.createQuery("SELECT c FROM Cars c", Car.class);
         return query.getResultList();
     }
     
-    public List<Cars> getCarsByOwner(String owner){
+    public List<Car> getCarsByOwner(String owner){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Cars> tq = em.createQuery("SELECT c FROM Cars c WHERE c.owner LIKE :owner", Cars.class);
+        TypedQuery<Car> tq = em.createQuery("SELECT c FROM Cars c WHERE c.owner LIKE :owner", Car.class);
         tq.setParameter("name", "%" + owner + "%");
         return tq.getResultList();
     }
     
-    public Cars getCarsById(long id) {
+    public Car getCarsById(long id) {
         EntityManager em = emf.createEntityManager();
-        return em.find(Cars.class, id);
+        return em.find(Car.class, id);
     }
 
-    public Cars createStudent(Cars car) {
+    public Car createCars(Car car) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -73,4 +73,6 @@ public class CarsFacade {
         }
         return car;
     }
+    
+    
 }
